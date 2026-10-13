@@ -1,5 +1,5 @@
 {
-  "homepage": ".",
+  "homepage": "https://ievgen-nikiforov.github.io/react-phone-book/",
   "name": "react-typescript-starter-pack",
   "version": "0.1.0",
   "dependencies": {
@@ -40,7 +40,7 @@
   },
   "scripts": {
     "start": "mate-scripts start -l",
-    "build": "mate-scripts build",
+    "build": "tsc --noEmit && vite build",
     "style-format": "npx stylelint 'src/**/*.scss' --fix --allow-empty-input",
     "lint-js": "mate-scripts lint -j",
     "lint-css": "mate-scripts lint -s",

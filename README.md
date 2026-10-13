@@ -11,8 +11,9 @@ entirely in the browser and does not require a backend or API credentials.
 
 ## Live Preview
 
-A published demo URL has not been verified yet. To preview the application
-locally, follow the setup instructions below.
+[GitHub Pages](https://ievgen-nikiforov.github.io/react-phone-book/)
+
+The site becomes available after the first successful deployment.
 
 ## Technologies Used
 
@@ -58,6 +59,18 @@ locally, follow the setup instructions below.
 ```bash
 npm run build
 ```
+
+### GitHub Pages Deployment
+
+1. In the repository, open **Settings → Pages** and select **GitHub Actions** as
+   the build and deployment source.
+2. Commit and push the project, including `.github/workflows/deploy.yml`, to
+   `main`.
+3. Wait for the **Deploy to GitHub Pages** workflow to finish in the **Actions**
+   tab, then open the live preview link above.
+
+Later pushes to `main` redeploy the site automatically. You can also start a
+deployment manually from the workflow's **Run workflow** button.
 
 ### Code Quality
 
