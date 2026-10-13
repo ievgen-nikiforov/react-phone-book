@@ -22,6 +22,7 @@ export const ProductCard = ({ product, showDiscount = true }: Props) => {
     <article className={styles.card}>
       <Link
         to={`/product/${product.itemId}`}
+        state={{ scrollToTop: true }}
         className={`${styles.imageLink} image-link`}
       >
         <img
@@ -31,7 +32,11 @@ export const ProductCard = ({ product, showDiscount = true }: Props) => {
         />
       </Link>
 
-      <Link to={`/product/${product.itemId}`} className={styles.name}>
+      <Link
+        to={`/product/${product.itemId}`}
+        state={{ scrollToTop: true }}
+        className={styles.name}
+      >
         {product.name}
       </Link>
 

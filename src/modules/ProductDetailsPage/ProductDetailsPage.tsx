@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getProductByItemId, getSuggestedProducts } from '@/api/products';
 import { ProductDetails } from '@/types/ProductDetails';
 import { Product, ProductCategory } from '@/types/Product';
@@ -42,6 +42,7 @@ const toProduct = (details: ProductDetails): Product => ({
 export const ProductDetailsPage = () => {
   const { productId = '' } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [product, setProduct] = useState<ProductDetails | null>(null);
   const [suggested, setSuggested] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -50,11 +51,16 @@ export const ProductDetailsPage = () => {
   const { toggleFavourite, isFavourite } = useFavourites();
 
   useEffect(() => {
+    let cancelled = false;
+
     setIsLoading(true);
     setNotFound(false);
-    setProduct(null);
 
     getProductByItemId(productId).then(details => {
+      if (cancelled) {
+        return;
+      }
+
       if (!details) {
         setNotFound(true);
         setIsLoading(false);
@@ -64,11 +70,29 @@ export const ProductDetailsPage = () => {
 
       setProduct(details);
       setIsLoading(false);
-      getSuggestedProducts(details).then(setSuggested);
+      getSuggestedProducts(details).then(products => {
+        if (!cancelled) {
+          setSuggested(products);
+        }
+      });
     });
+
+    return () => {
+      cancelled = true;
+    };
   }, [productId]);
 
-  if (isLoading) {
+  useEffect(() => {
+    if (
+      !isLoading &&
+      product?.id === productId &&
+      location.state?.scrollToTop
+    ) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [isLoading, product, productId, location.key, location.state]);
+
+  if (isLoading && !product) {
     return <Loader />;
   }
 
@@ -114,14 +138,10 @@ export const ProductDetailsPage = () => {
   return (
     <div className={styles.page}>
       <div className={styles.top}>
-        <button
-          type="button"
-          className={styles.back}
-          onClick={() => navigate(-1)}
-        >
+        <Link to={`/${product.category}`} className={styles.back}>
           <Icon name="chevron-left" />
           Back
-        </button>
+        </Link>
 
         <Breadcrumbs crumbs={crumbs} />
       </div>

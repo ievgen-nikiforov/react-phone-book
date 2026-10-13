@@ -2,12 +2,12 @@ import { Logo } from '@/components/Logo';
 import { Icon } from '@/components/Icon';
 import styles from './Footer.module.scss';
 
-const REPO_URL = 'https://github.com/mate-academy/react_phone-catalog';
+const REPO_URL = 'https://github.com/ievgen-nikiforov/react-phone-book';
 
 const links = [
   { label: 'Github', href: REPO_URL },
-  { label: 'Contacts', href: '/' },
-  { label: 'Rights', href: '/' },
+  { label: 'Contacts', href: 'https://github.com/ievgen-nikiforov' },
+  { label: 'Rights', href: `${REPO_URL}/blob/main/LICENSE` },
 ];
 
 const scrollToTop = () => {
@@ -25,8 +25,8 @@ export const Footer = () => (
             <li key={label}>
               <a
                 href={href}
-                target={href === REPO_URL ? '_blank' : undefined}
-                rel={href === REPO_URL ? 'noopener noreferrer' : undefined}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={styles.navLink}
               >
                 {label}
