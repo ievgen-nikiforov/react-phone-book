@@ -62,15 +62,20 @@ npm run build
 
 ### GitHub Pages Deployment
 
-1. In the repository, open **Settings → Pages** and select **GitHub Actions** as
-   the build and deployment source.
-2. Commit and push the project, including `.github/workflows/deploy.yml`, to
-   `main`.
-3. Wait for the **Deploy to GitHub Pages** workflow to finish in the **Actions**
-   tab, then open the live preview link above.
+1. With Git installed and authenticated to GitHub, run:
 
-Later pushes to `main` redeploy the site automatically. You can also start a
-deployment manually from the workflow's **Run workflow** button.
+   ```bash
+   npm run deploy
+   ```
+
+   This builds the application and publishes `dist` to the `gh-pages` branch.
+
+2. In the repository, open **Settings → Pages**. Select **Deploy from a branch**,
+   choose **gh-pages** and **/(root)**, and click **Save**.
+3. Wait for GitHub Pages to publish, then open the live preview link above.
+
+Run `npm run deploy` again whenever you want to publish updates. No custom
+GitHub Actions workflow file is required.
 
 ### Code Quality
 
